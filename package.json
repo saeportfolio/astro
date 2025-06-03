@@ -14,6 +14,7 @@
     "sharp": "^0.34.2"
   },
   "devDependencies": {
+    "@astrojs/vercel": "^8.1.4",
     "sass": "^1.89.0"
   }
 }
