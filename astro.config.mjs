@@ -3,6 +3,6 @@ import vercel from '@astrojs/vercel/server'
 
 export default defineConfig({
   trailingSlash: 'ignore',
-  output: "sever",
+  output: "server",
   adapter: vercel(),
 });
