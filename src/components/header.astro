@@ -1,0 +1,114 @@
+---
+---
+
+<!-- ヘッダー -->
+<header>
+  <div class="inner">
+    <a href="/" class="logo">
+      <img src="/images/logo.png" alt="portfolio" width="500" height="92" />
+    </a>
+
+    <!-- ハンバーガー -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <ul class="list" id="navMenu">
+      <li><a href="#footer" class="link">About</a></li>
+      <li><a href="#" class="link link--button">Contact me</a></li>
+    </ul>
+  </div>
+<!-- クライアントサイドJS -->
+  <script type="module">
+    document.addEventListener("DOMContentLoaded", () => {
+      const hamburger = document.getElementById("hamburger");
+      const navMenu = document.getElementById("navMenu");
+
+      hamburger?.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+    });
+  </script>
+</header>
+
+
+<style lang="scss">
+header {
+    width: 100%;
+    position: relative;
+}
+.inner {
+    max-width: 960px;
+    padding: 20px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    width: 160px;
+}
+.list {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.link {
+    display: block;
+    padding: 15px 20px;
+    &--button {
+        background-color: #333;
+        color: #fff;
+    }
+}
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    &.active {
+        span {
+            &:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            &:nth-child(2) {
+                opacity: 0;
+            }
+            &:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+        }
+    }
+    span {
+        display: block;
+        height: 3px;
+        background-color: #333;
+        transition: 0.3s;
+    }
+}
+@media (max-width: 768px) {
+.hamburger {
+    display: flex;
+}
+.list {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    &.active {
+        display: flex;
+    }
+}
+}
+</style>

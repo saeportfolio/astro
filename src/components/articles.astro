@@ -1,0 +1,89 @@
+---
+// MicroCMSの呼び出し
+import { getBlogs } from '../libs/microcms';
+const response = await getBlogs({
+	fields: ["id", "title", "category", "summary"]
+})
+// ボタン表示非表示のためのパラメータ
+const { isVisible = true } = Astro.props;
+const { isArchive = true } = Astro.props;
+---
+<!-- 記事一覧 -->
+<section>
+    <div class="inner">
+        {isArchive && (
+            <h1>記事一覧</h1>
+        )}
+        <ul class="list">
+            {
+                response.contents.map((item: any) => (
+                    <li class="item">
+                        <a href={`/blog/${item.id}`}>
+                            <div class="thumbnail">thumbnail</div>
+                            <p class="category">{item.category.name}</p>
+                            <p class="title">{item.title}</p>
+                            <p class="summary">{item.summary}</p>
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+        {isVisible && (
+        <div class="bottom">
+            <a href="/blog" class="button">Load More Articles</a>
+        </div>
+        )}
+    </div>
+</section>
+<style lang="scss">
+h1 {
+    padding-bottom: 16px;
+    text-align: center;
+}
+.inner {
+    max-width: 960px;
+    padding: 0 20px;
+    margin-inline: auto;
+}
+.list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+}
+.item {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 1;
+    border-bottom: 1px solid #e7e7e9;
+}
+.thumbnail {
+    aspect-ratio: 16 / 9;
+    background-color: #888;
+}
+.category {
+    margin-bottom: 0;
+    font-size: 0.875rem;
+    color: #888;
+}
+.title {
+    margin-bottom: 0;
+    font-weight: bold;
+}
+.summary {
+    font-size: 0.875rem;
+    color: #888;
+}
+.bottom {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+}
+@media (max-width: 768px) {
+.list {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 20px;
+}
+}
+</style>
