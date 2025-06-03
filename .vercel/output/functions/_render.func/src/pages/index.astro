@@ -1,0 +1,50 @@
+---
+// Components
+import Articles from '../components/articles.astro';
+import Footer from '../components/footer.astro';
+import Header from '../components/header.astro';
+import SearchBox from '../components/searchBox.astro';
+// Layouts
+import Layout from '../layouts/Layout.astro';
+
+---
+
+<Layout>
+	<!-- ヘッダー -->
+	 <Header />
+	<!-- タイトル -->
+	 <div class="mainVisual">
+		<div class="mainVisual__wrapper">
+			<h1>Blog portfolio using Astro</h1>
+			<p class="mainVisual__lead">This is a blog site using Astro. The server is Vercel, and the CMS is MicroCMS to make it headless. <br>The style is mainly SCSS in components with BEM notation.</p>
+			<div class="mainVisual__search">
+				<SearchBox />
+			</div>
+		</div>
+	 </div>
+	<!-- 記事一覧 -->
+	 <Articles isVisible={true} isArchive={false}/>
+	 <!-- フッター -->
+	  <Footer />
+</Layout>
+<style lang="scss">
+.mainVisual {
+	padding: 64px 0;
+	&__wrapper {
+		max-width: 960px;
+		padding: 0 20px;
+		margin-inline: auto;
+	}
+	&__lead {
+		color: #888;
+	}
+	&__search {
+		display: flex;
+		justify-content: center;
+		margin-top: 32px;
+	}
+}
+h1 {
+	text-align: center;
+}
+</style>

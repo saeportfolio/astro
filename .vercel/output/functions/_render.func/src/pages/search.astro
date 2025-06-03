@@ -1,0 +1,53 @@
+---
+// microCMSの読み込み
+import { getBlogs } from '../libs/microcms.ts';
+// Layout
+import Layout from '../layouts/Layout.astro';
+// Components
+import Header from '../components/header.astro';
+import Footer from '../components/footer.astro';
+// クエリから keyword を取得
+const url = new URL(Astro.request.url);
+console.log(url);
+const keyword = url.searchParams.get('keyword') || '';
+// 検索キーワードがある場合に記事取得
+let response = { contents: [] };
+if (keyword) {
+  response = await getBlogs({
+    q: keyword,
+    limit: 20,
+  });
+}
+export const prerender = false;
+---
+<Layout>
+<Header />
+<section>
+    <div class="inner">
+        <h1>検索結果：「{keyword}」</h1>
+        {response.contents.length === 0 ? (
+        <p>該当する記事が見つかりませんでした。</p>
+        ) : (
+        <ul>
+            {response.contents.map((item: any) => (
+            <li>
+                <a href={`/blog/${item.id}`}>{item.title}</a>
+                <p>{item.summary}</p>
+            </li>
+            ))}
+        </ul>
+        )}
+    </div>
+</section>
+<Footer />
+</Layout>
+<style lang="scss">
+.inner {
+    max-width: 960px;
+    padding: 0 20px;
+    margin-inline: auto;
+}
+</style>
+
+
+

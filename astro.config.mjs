@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel/server'; // ← vercel adapter をインポート
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  output: 'server',
+  output: 'server', // または 'static'
   adapter: vercel(),
 });

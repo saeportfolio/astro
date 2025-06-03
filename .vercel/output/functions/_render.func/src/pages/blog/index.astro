@@ -1,0 +1,28 @@
+---
+// components
+import Articles from '../../components/articles.astro';
+import Footer from '../../components/footer.astro';
+import Header from '../../components/header.astro';
+import Layout from '../../layouts/Layout.astro';
+// MicroCMSの呼び出し
+import { getBlogs } from '../../libs/microcms';
+const response = await getBlogs({
+	fields: ["id", "title", "category", "summary"]
+})
+---
+<!-- 記事一覧 -->
+<Layout>
+    <!-- ヘッダー -->
+    <Header />
+    <!-- 記事一覧 -->
+    <div class="articleWrapper">
+        <Articles isVisible={false} isArchive={true}/>
+    </div>
+	<!-- フッター -->
+    <Footer />
+</Layout>
+<style lang="scss">
+    .articleWrapper {
+        padding: 64px 0;
+    }
+</style>
